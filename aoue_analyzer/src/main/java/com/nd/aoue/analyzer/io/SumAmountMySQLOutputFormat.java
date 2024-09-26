@@ -32,16 +32,16 @@ public class SumAmountMySQLOutputFormat extends OutputFormat<Text,Text> {
          */
         @Override
         public void write(Text key, Text value) throws IOException, InterruptedException {
-            System.out.println("123");
+            //System.out.println("123");
             System.out.println(value);
-            String[] values=value.toString().split("_");
+            String[] values=value.toString().split("\\^");
             String name = values[0];
             String party = values[1];
             int sumAmount = Integer.parseInt(values[2]);
             PreparedStatement ps=null;
             //TODO 本组化 现在插入的是候选人信息以及计算得出的总金额
             try {
-                String insertSQL="insert into cand (cand_nm, cand_party, cand_amount) values (?, ?, ?);";
+                String insertSQL="insert into cand_sumamount (cand_nm, cand_party, cand_amount) values (?, ?, ?);";
                 ps = connection.prepareStatement(insertSQL);
                 ps.setString(1, name);
                 ps.setString(2,party);
